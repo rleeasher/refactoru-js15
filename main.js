@@ -1,6 +1,9 @@
 $(function(){
 	//use date index to find current date through nicedate
-	var dates = [];
+
+	var localdata = localStorage['appointments'];
+
+	var dates = localdata === undefined ? [] : JSON.parse(localdata);
 	var loadDate = (new Date()).getTime();
 	var fullMonth = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	var weekday=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -29,7 +32,7 @@ $(function(){
 	//renders the dates on the screen
 	var render = function () {
 		$('.calendar-item').remove();
-		$('.mini').hide();
+		$('.mini').css('visibility','hidden');
 		for (var i = 0; i < dates.length; i++) {
 			var newDay = $('#prototype').clone(true);
 
@@ -41,12 +44,13 @@ $(function(){
 				for (var j = 0; j < dates[i].appointments.length; j++) {
 					newDay.find('[data-time='+(j+8)+']').find('.appointment-text').text(dates[i].appointments[j]);
 					if (newDay.find('[data-time='+(j+8)+']').find('.appointment-text').text().length>1) {
-						newDay.find('[data-mini='+(j+8)+']').show();
+						newDay.find('[data-mini='+(j+8)+']').css('visibility','visible');
 					};
 				};
 			newDay.find('.appt-creator').hide();
 			newDay.appendTo($('#left-container'));
 		};
+		localStorage['appointments'] = JSON.stringify(dates);
 	};
 
 	//generate days on load
@@ -75,8 +79,10 @@ $(function(){
 
 	//shows date appt detail as well as submitting new ones
 	var showDate = function () {
-		$(this).closest('.calendar-item').find('.appt-container').toggle();
-		$(this).closest('.calendar-item').find('.appt-creator').toggle();
+		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
+		$(this).closest('.calendar-item').find('appt-text').val('');
+		$(this).closest('.calendar-item').find('.appt-container').slideToggle();
+		$(this).closest('.calendar-item').find('.appt-creator').slideToggle();
 	};
 
 	var dateFinder = function (date) {
@@ -104,6 +110,28 @@ $(function(){
 		render();
 	};
 
+	var selectDataClick = function () {
+		$(this).closest('.calendar-item').find('.appt-container').slideToggle();
+		$(this).closest('.calendar-item').find('.appt-creator').slideToggle();
+		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
+		console.log($(this).data('mini'));
+		$(this).closest('.calendar-item').find('.time').find('[value='+$(this).data('mini')+']').attr('selected','selected');
+	};
+
+	var editData = function () {
+		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
+		$(this).closest('.calendar-item').find('appt-text').val('');
+		console.log($(this).data('mini'));
+
+		var time = $(this).data('time');
+		var text = $(this).find('.appointment-text').text();
+		console.log(time+text);
+		$(this).closest('.calendar-item').find('.time').find('[value='+time+']').attr('selected','selected');
+		$(this).closest('.calendar-item').find('.appt-text').val(text);
+	};
+
+
+
 
 
 	//get submit data
@@ -111,6 +139,9 @@ $(function(){
 
 	//showstuff
 	$(document).on('click','.date',showDate);
+	$(document).on('click','.mini',selectDataClick);
+	$(document).on('click','.appointment',editData);
+
 
 	//infinite scroll
 	$(document).on('scroll',function(){
@@ -132,4 +163,5 @@ $(function(){
 	});
 
 	generateinitialDays();
+	
 });

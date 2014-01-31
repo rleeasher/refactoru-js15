@@ -103,13 +103,13 @@ ul {
 	text-align: center;
 	padding:2px;
 	display: inline-block;
-	font-size: 10px;
+	font-size: 12px;
 	width: 40px;
-	height: 20px;
+	height: 25px;
 	background:whitesmoke;
 	border: 1px solid #808080;
 	line-height: 20px;
-	margin-bottom: 10px
+	margin-bottom: 10px;
 }
 
 .calendar-item>h2>a {
@@ -133,14 +133,14 @@ select {
 	border-top: 1px solid #808080;
 }
 
-#appt-text {
+.appt-text {
 	width: 50%;
 	margin:0 20px;
 	padding: 5px;
 	outline: none;
 	border: 1px solid #808080;
 }
-#submit-button {
+.submit-button {
 	margin-left: 20px;
 	padding: 5px;
 	background-color: #f0f0f0; background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0f0), to(#e0e0e0));
@@ -149,11 +149,11 @@ select {
 	outline: none;
 }
 
-#submit-button:hover {
+.submit-button:hover {
 	background-color: #e0e0e0; background-image: -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#bababa));
 }
 
-#submit-button:active {
+.submit-button:active {
 	position: relative;
 	top:1px;
 }
