@@ -4,7 +4,7 @@ $(function(){
 	var loadDate = (new Date()).getTime();
 	var fullMonth = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	var weekday=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-	var appointments = ["","","","","","","","","",""];
+	// var loadappoints = ["","","","","","","","","",""];
 
 	//create apptDay object
 	var apptDay = function(date,dayofweek,appointments){
@@ -32,7 +32,7 @@ $(function(){
 		$('.mini').hide();
 		for (var i = 0; i < dates.length; i++) {
 			var newDay = $('#prototype').clone(true);
-			
+
 			newDay.attr('id', 'guid'+ i);			
 			newDay.find('.date').text(dates[i].date);
 			newDay.attr('class','calendar-item');
@@ -54,7 +54,7 @@ $(function(){
 		var initialNum = 20;
 		for (var i = 0; i < initialNum; i++) {
 			var newDay = niceDate(loadDate+(i*86400000));	
-			var addDay = new apptDay(newDay[0],newDay[1],appointments);
+			var addDay = new apptDay(newDay[0],newDay[1],["","","","","","","","","",""]);
 			dates.push(addDay);
 		};
 		render();
@@ -67,7 +67,7 @@ $(function(){
 		var currentday = dates.length;
 		for (var i = 0; i < additionalDays; i++) {
 			var newDay = niceDate(loadDate+((i+currentday)*86400000));
-			var addDay = new apptDay(newDay[0],newDay[1],appointments);
+			var addDay = new apptDay(newDay[0],newDay[1],["","","","","","","","","",""]);
 			dates.push(addDay);
 		};
 		render();
@@ -85,20 +85,22 @@ $(function(){
 			if(date === dates[i].date) 
 				index = i;
 		};
+		console.log(index);
 		return index;
 	};
 
 	var submitData = function (e) {
 		e.preventDefault();
+		console.log(dates);		
 		console.log($(this));
 		var time = $(this).find('select').val();
 		var text = $(this).find('input').val();
 
 		var day = $(this).closest('.calendar-item').find('.date').text();
 		console.log(day+time+text);
-		var workingDateObj = dates[dateFinder(day)];
-		console.log(workingDateObj);
-		workingDateObj.appointments[time-8] = text;
+
+		dates[dateFinder(day)].appointments[time-8] = text;
+		console.log(dates);
 		render();
 	};
 
