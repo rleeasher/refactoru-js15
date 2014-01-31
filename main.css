@@ -1,0 +1,184 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 0; border:none;
+  font-family: 'Architects Daughter', cursive;
+  color: #808080;
+ }
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #e0e0e0;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #e0e0e0;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #e0e0e0;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #e0e0e0;
+}
+
+a {
+	text-decoration: none;
+	color: #808080;
+}
+
+ul {
+	list-style: none; 
+
+}
+
+.remove-css {
+	border: none;
+	padding: 0;
+	margin: 0;
+}
+
+.hidden {
+	display: none;
+}
+
+/*container objects*/
+
+#main-container {
+	width: 100%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+#left-container {
+	width: 80%;
+	float: left;
+}
+
+
+/*side objects*/
+#aside-right {
+	position: fixed;
+	width: 200px;
+	height: 400px;
+	top: 200px;
+	right: 0;
+}
+
+#pointer{
+	width: 10%;
+	float: right;
+	padding: 20px 20px 20px 0px;
+}
+
+#pointer>li{
+	width: 10px;
+	height: 20px;
+	margin-bottom: 10px;
+}
+
+#date-filter{
+	float: right;
+	width: 80%;
+	padding: 20px 0 20px 20px;
+	border-left: 1px solid #808080;
+}
+
+.side-links {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+/*calendar items*/
+
+
+/*calendar headers*/
+.calendar-item {
+
+}
+
+.calendar-item>h2 {
+	overflow: hidden;
+	padding-top: 20px;
+	margin: 0;
+	border-bottom: 3px solid #808080;
+}
+
+.mini {
+	text-align: center;
+	padding:2px;
+	display: inline-block;
+	font-size: 10px;
+	width: 40px;
+	height: 20px;
+	background:whitesmoke;
+	border: 1px solid #808080;
+	line-height: 20px;
+	margin-bottom: 10px
+}
+
+.calendar-item>h2>a {
+	font-weight: normal;
+}
+
+/*appointment maker*/
+select {
+	padding: 5px;
+	background: whitesmoke;
+	-webkit-appearance: none;
+	outline: none;
+	border: 1px solid #808080;
+	cursor: pointer;
+}
+
+.appt-creator{
+	padding: 20px;
+	clear: both;
+	border-bottom: 1px solid #808080;
+	border-top: 1px solid #808080;
+}
+
+#appt-text {
+	width: 50%;
+	margin:0 20px;
+	padding: 5px;
+	outline: none;
+	border: 1px solid #808080;
+}
+#submit-button {
+	margin-left: 20px;
+	padding: 5px;
+	background-color: #f0f0f0; background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0f0), to(#e0e0e0));
+	border-radius: 4px;
+	border: 1px solid #808080;
+	outline: none;
+}
+
+#submit-button:hover {
+	background-color: #e0e0e0; background-image: -webkit-gradient(linear, left top, left bottom, from(#e0e0e0), to(#bababa));
+}
+
+#submit-button:active {
+	position: relative;
+	top:1px;
+}
+
+
+/*appointments*/
+.appt-container{
+	overflow: hidden;
+	padding: 20px;
+}
+
+.appointment{
+	margin: 10px 4px;
+	float: left;
+	width: 150px;
+	min-height: 40px;
+	background: whitesmoke;
+}
+.appointment-text {
+	padding-left: 4px;
+	margin: 0;
+}
+
+.time {
+	cursor: pointer;
+	padding: 4px;
+}
+
