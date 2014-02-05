@@ -4,7 +4,7 @@ $(function(){
 	var localdata = localStorage['appointments'];
 
 	var dates = localdata === undefined ? [] : JSON.parse(localdata);
-	var loadDate = (new Date()).getTime();
+	var today = (new Date()).getTime();
 	var fullMonth = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 	var weekday=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 	// var loadappoints = ["","","","","","","","","",""];
@@ -50,6 +50,7 @@ $(function(){
 			newDay.find('.appt-creator').hide();
 			newDay.appendTo($('#left-container'));
 		};
+		localStorage['appointments'] = "";
 		localStorage['appointments'] = JSON.stringify(dates);
 	};
 
@@ -57,7 +58,7 @@ $(function(){
 	var generateinitialDays = function () {
 		var initialNum = 20;
 		for (var i = 0; i < initialNum; i++) {
-			var newDay = niceDate(loadDate+(i*86400000));	
+			var newDay = niceDate(today+(i*86400000));	
 			var addDay = new apptDay(newDay[0],newDay[1],["","","","","","","","","",""]);
 			dates.push(addDay);
 		};
@@ -70,66 +71,86 @@ $(function(){
 		var additionalDays = 20;
 		var currentday = dates.length;
 		for (var i = 0; i < additionalDays; i++) {
-			var newDay = niceDate(loadDate+((i+currentday)*86400000));
+			var newDay = niceDate(today+((i+currentday)*86400000));
 			var addDay = new apptDay(newDay[0],newDay[1],["","","","","","","","","",""]);
 			dates.push(addDay);
 		};
 		render();
 	};
 
-	//shows date appt detail as well as submitting new ones
-	var showDate = function () {
-		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
-		$(this).closest('.calendar-item').find('appt-text').val('');
-		$(this).closest('.calendar-item').find('.appt-container').slideToggle();
-		$(this).closest('.calendar-item').find('.appt-creator').slideToggle();
-	};
 
+	//returns a nice looking date
 	var dateFinder = function (date) {
 		var index = 0
 		for (var i = 0; i < dates.length; i++) {
-			if(date === dates[i].date) 
-				index = i;
-		};
-		console.log(index);
-		return index;
+			if(date === dates[i].date){
+				return i;
+			}
+		}
+		return -1;
 	};
 
+	//handles data submission
 	var submitData = function (e) {
 		e.preventDefault();
-		console.log(dates);		
-		console.log($(this));
 		var time = $(this).find('select').val();
 		var text = $(this).find('input').val();
-
 		var day = $(this).closest('.calendar-item').find('.date').text();
-		console.log(day+time+text);
-
 		dates[dateFinder(day)].appointments[time-8] = text;
-		console.log(dates);
 		render();
 	};
 
-	var selectDataClick = function () {
-		$(this).closest('.calendar-item').find('.appt-container').slideToggle();
-		$(this).closest('.calendar-item').find('.appt-creator').slideToggle();
-		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
-		console.log($(this).data('mini'));
-		$(this).closest('.calendar-item').find('.time').find('[value='+$(this).data('mini')+']').attr('selected','selected');
+	//shows date appt detail as well as submitting new ones
+	var showDate = function (e) {
+		e.preventDefault();
+		var parent = $(this).closest('.calendar-item');
+		parent.find('.time').children().removeAttr('selected');
+		parent.find('.appt-text').val('');
+		parent.find('.appt-container').slideToggle();
+		parent.find('.appt-creator').slideToggle();
+		parent.find('.appt-text').focus();
 	};
 
-	var editData = function () {
-		$(this).closest('.calendar-item').find('.time').children().removeAttr('selected');
-		$(this).closest('.calendar-item').find('appt-text').val('');
-		console.log($(this).data('mini'));
+	var selectDataClick = function (e) {
+		e.preventDefault();
+		var parent = $(this).closest('.calendar-item');
+		parent.find('.time').children().removeAttr('selected');
+		parent.find('.appt-text').val('');
+		parent.find('.appt-container').slideToggle();
+		parent.find('.appt-creator').slideToggle();
 
-		var time = $(this).data('time');
-		var text = $(this).find('.appointment-text').text();
-		console.log(time+text);
-		$(this).closest('.calendar-item').find('.time').find('[value='+time+']').attr('selected','selected');
-		$(this).closest('.calendar-item').find('.appt-text').val(text);
+		var time = $(this).data('mini');
+		var text = parent.find('[data-time='+time+']').find('.appointment-text').text();
+
+		parent.find('.time').find('[value='+time+']').attr('selected','selected');
+		parent.find('.appt-text').val(text);
+		parent.find('.appt-text').focus();
 	};
 
+	var editData = function (e) {
+		var parent = $(this).closest('.calendar-item');
+		e.preventDefault();
+		parent.find('.time').children().removeAttr('selected');
+		parent.find('.appt-text').val('');
+
+		var time = $(this).closest('.appointment').data('time');
+		var text = $(this).closest('.appointment').find('.appointment-text').text();
+
+		parent.find('.time').find('[value='+time+']').attr('selected','selected');
+		parent.find('.appt-text').val(text);
+		parent.find('.appt-text').focus();
+	};
+
+	var deleteAppt = function (e) {
+		e.preventDefault();
+		var item = $(this).closest('.calendar-item');
+		var index = dateFinder(item.find('.date').text());
+		item.find('.appointment-text').text('');
+		var time = $(this).closest('.appointment').data('time');
+		dates[index].appointments[time-8]='';
+		console.log(item+index+time);
+		render();
+	};
 
 
 
@@ -140,7 +161,8 @@ $(function(){
 	//showstuff
 	$(document).on('click','.date',showDate);
 	$(document).on('click','.mini',selectDataClick);
-	$(document).on('click','.appointment',editData);
+	$(document).on('click','.delete-comment',deleteAppt);
+	$(document).on('click','.time',editData);
 
 
 	//infinite scroll
@@ -162,6 +184,10 @@ $(function(){
 		});
 	});
 
-	generateinitialDays();
+	if (localdata === undefined) {
+		generateinitialDays();
+	} else {
+		render();
+	};
 	
 });

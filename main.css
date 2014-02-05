@@ -2,7 +2,7 @@
   -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 0; border:none;
   font-family: 'Architects Daughter', cursive;
   color: #808080;
- }
+}
 
 ::-webkit-input-placeholder { /* WebKit browsers */
     color:    #e0e0e0;
@@ -35,6 +35,11 @@ ul {
 
 .hidden {
 	display: none;
+}
+
+/*header*/
+#main-header {
+	text-align: center;
 }
 
 /*container objects*/
@@ -96,15 +101,16 @@ ul {
 	overflow: hidden;
 	padding-top: 20px;
 	margin: 0;
-	border-bottom: 3px solid #808080;
+	border-bottom: 1px solid #808080;
 }
 
 .mini {
+	font-weight: none;
 	text-align: center;
 	padding:2px;
 	display: inline-block;
 	font-size: 12px;
-	width: 40px;
+	width: 45px;
 	height: 25px;
 	background:whitesmoke;
 	border: 1px solid #808080;
@@ -112,8 +118,19 @@ ul {
 	margin-bottom: 10px;
 }
 
-.calendar-item>h2>a {
+.mini:hover {
+	background: lightgray;
+}
+
+.mini:active {
+	position: relative;
+	top: 1px;
+}
+
+.calendar-item>h2>.date {
 	font-weight: normal;
+	display: inline-block;
+	margin: 0 20px;
 }
 
 /*appointment maker*/
@@ -127,6 +144,7 @@ select {
 }
 
 .appt-creator{
+	background-color: lightgray;
 	padding: 20px;
 	clear: both;
 	border-bottom: 1px solid #808080;
@@ -160,6 +178,12 @@ select {
 
 
 /*appointments*/
+
+.left-hours,.right-hours{
+	display: inline-block;
+	overflow: hidden;
+	float: left;
+}
 .appt-container{
 	overflow: hidden;
 	padding: 20px;
@@ -167,18 +191,23 @@ select {
 
 .appointment{
 	margin: 10px 4px;
-	float: left;
 	width: 150px;
 	min-height: 40px;
 	background: whitesmoke;
 }
 .appointment-text {
-	padding-left: 4px;
+	padding: 4px;
 	margin: 0;
 }
 
 .time {
 	cursor: pointer;
 	padding: 4px;
+	display: inline-block;
+}
+
+.delete-comment {
+	float: right;
+	padding-right: 10px;
 }
 

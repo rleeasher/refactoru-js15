@@ -14,6 +14,9 @@
   <!-- Body Start -->
   <body>
   <!-- PROTOTYPES -->
+    <div id="main-header">
+      <h1>Appointment Calendar</h1>
+    </div>
       <div id="prototype" class="hidden">
         <h2>
             <a class="date" href="#">January 29, 2014</a>
@@ -29,16 +32,40 @@
             <a href="#" data-mini="17" class="mini">5 pm</a>
         </h2>
           <div class="appt-container hidden">
-            <div class="appointment" data-time="8"><h4 class="time remove-css">8:00 am</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="9"><h4 class="time remove-css">9:00 am</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="10"><h4 class="time remove-css">10:00 am</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="11"><h4 class="time remove-css">11:00 am</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="12"><h4 class="time remove-css">12:00 pm</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="13"><h4 class="time remove-css">1:00 pm</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="14"><h4 class="time remove-css">2:00 pm</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="15"><h4 class="time remove-css">3:00 pm</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="16"><h4 class="time remove-css">4:00 pm</h4><p class="appointment-text"></p></div>
-            <div class="appointment" data-time="17"><h4 class="time remove-css">5:00 pm</h4><p class="appointment-text"></p></div>
+            <div class="left-hours">
+              <div class="appointment" data-time="8">
+                <h4 class="time remove-css">8:00 am</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="9">
+                <h4 class="time remove-css">9:00 am</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="10">
+                <h4 class="time remove-css">10:00 am</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="11">
+                <h4 class="time remove-css">11:00 am</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="12">
+                <h4 class="time remove-css">12:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+            </div>
+            <div class="right-hours">
+              <div class="appointment" data-time="13">
+                <h4 class="time remove-css">1:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="14">
+                <h4 class="time remove-css">2:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="15">
+                <h4 class="time remove-css">3:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="16">
+                <h4 class="time remove-css">4:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+              <div class="appointment" data-time="17">
+                <h4 class="time remove-css">5:00 pm</h4><a href="#" class="delete-comment">x</a><p class="appointment-text"></p>
+              </div>
+            </div>
           </div>
         <div class="appt-creator" class="hidden">
           <form>
